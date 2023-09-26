@@ -4,9 +4,6 @@ install:
 gen-diff:
 	poetry run gendiff -h
 
-#build:
-#	poetry build
-
 publish:
 	poetry publish --dry-run
 
@@ -22,11 +19,9 @@ test-coverage:
 lint:
 	poetry run flake8 gendiff
 
-selfcheck:
-	poetry check
-
 check: test lint
 
-build: check poetry build
+build: check
+		poetry build
 
 .PHONY: install test lint check build
