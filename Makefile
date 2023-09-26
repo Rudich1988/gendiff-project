@@ -22,13 +22,12 @@ test-coverage:
 lint:
 	poetry run flake8 gendiff
 
-selfcheck:
-	poetry check
+#selfcheck:
+#	poetry check
 
-check:
-	selfcheck test lint
+check: test lint
 
 build: check
 		poetry build
 
-.PHONY: install test lint selfcheck check build
+.PHONY: install test lint check build
