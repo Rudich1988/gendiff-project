@@ -1,9 +1,27 @@
 import json
+import yaml
+
+
+def create_data_file(file, directory):
+    if file[-4:] == 'json':
+        return change_values(file, directory)
+    elif file[-3:] == 'yml':
+        return change_values_yaml(file, directory)
 
 
 def change_values(file, directory):
     path_file = directory + file
     file_data = json.load(open(path_file))
+    for key, value in file_data.items():
+        if value in [False, True]:
+            file_data[key] = str(value).lower()
+    return file_data
+
+
+def change_values_yaml(file, directory):
+    path_file = directory + file
+    with open(path_file, 'r') as yaml_file:
+        file_data = yaml.safe_load(yaml_file)
     for key, value in file_data.items():
         if value in [False, True]:
             file_data[key] = str(value).lower()
@@ -26,8 +44,8 @@ def make_files_diff(files_keys, data_1, data_2):
 
 
 def generate_diff(file_1, file_2, files_directory='gendiff/files/'):
-    file_1_data = change_values(file_1, files_directory)
-    file_2_data = change_values(file_2, files_directory)
+    file_1_data = create_data_file(file_1, files_directory)
+    file_2_data = create_data_file(file_2, files_directory)
     all_files_keys = sorted(list(set(file_1_data) | (set(file_2_data))))
     files_diff_result = '{\n'
     files_diff = make_files_diff(all_files_keys, file_1_data, file_2_data)
