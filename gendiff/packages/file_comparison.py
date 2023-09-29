@@ -5,7 +5,7 @@ import yaml
 def create_data_file(file, directory):
     if file[-4:] == 'json':
         return change_values(file, directory)
-    elif file[-3:] == 'yml':
+    elif file[-3:] == 'yml' or file[-4:] == 'yaml':
         return change_values_yaml(file, directory)
 
 
@@ -43,7 +43,7 @@ def make_files_diff(files_keys, data_1, data_2):
     return files_diff
 
 
-def generate_diff(file_1, file_2, files_directory='gendiff/files/'):
+def generate_diff(file_1, file_2, files_directory):
     file_1_data = create_data_file(file_1, files_directory)
     file_2_data = create_data_file(file_2, files_directory)
     all_files_keys = sorted(list(set(file_1_data) | (set(file_2_data))))

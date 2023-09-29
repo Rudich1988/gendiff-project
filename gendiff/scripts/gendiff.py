@@ -9,14 +9,15 @@ description = 'Compares two configuration files and shows a difference.'
 
 
 def main():
-    parser = argparse.ArgumentParser(prog, usage, description)
+    parser = argparse.ArgumentParser(description='Compares two configuration files and shows a difference.',
+                                     usage='Usage: gendiff [options] <filepath1> <filepath2>')
     parser.add_argument('file_1')
     parser.add_argument('file_2')
-    parser.add_argument('-V', '--version', help='output the version number')
-    parser.add_argument('-f', '--format',
-                        help='output format (default: "stylish")')
+    parser.add_argument('-V', '--version', help='output the version number', action='store_true')
+    parser.add_argument('-f', '--format', default='gendiff/files/',
+                        help='output format (default: "stylish")', action='store_true')
     args = parser.parse_args()
-    print(generate_diff(args.file_1, args.file_2))
+    print(generate_diff(args.file_1, args.file_2, args.format))
 
 
 if __name__ == '__main__':

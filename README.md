@@ -8,4 +8,6 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/0ff4cfc3f03f5c3d5154/maintainability)](https://codeclimate.com/github/Rudich1988/python-project-50/maintainability)
 
 ### Демонстрация функций:
-- [демонстрация функции -help и поиск различий в файлах](https://asciinema.org/a/YyGjmPRfirgZEdODBHglg8fTB)
+- [демонстрация функции -help и поиск различий в файлах json формата](https://asciinema.org/a/YyGjmPRfirgZEdODBHglg8fTB)
+- [демонстрация функции -help и поиск различий в файлах json и yml форматов](https://asciinema.org/a/0dx6ZvZtiAlU2PEOsJi5Ur7Ld)
+- [демонстрация функции -help и поиск различий в файлах yml формата](https://asciinema.org/a/1pRmjB6zqxPCMLALjS2Ok7bo9)
