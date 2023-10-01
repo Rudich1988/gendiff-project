@@ -1,6 +1,6 @@
 import argparse
 
-from gendiff import generate_diff
+from gendiff import generate_diff_files
 
 
 prog = 'gendiff'
@@ -19,7 +19,7 @@ def main():
                         help='output format (default: "stylish")',
                         action='store_true')
     args = parser.parse_args()
-    print(generate_diff(args.file_1, args.file_2, args.format))
+    print(generate_diff_files(args.file_1, args.file_2, args.format))
 
 
 if __name__ == '__main__':
