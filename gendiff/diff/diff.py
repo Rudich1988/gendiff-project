@@ -2,10 +2,11 @@ import json
 import yaml
 
 
-def create_data_file(file):
+def create_data_file(file, files_directory='gendiff/files/'):
     if isinstance(type(file), dict):
         file_data = file
     elif type(file) == str:
+        file = files_directory + file
         if file[-5:] == '.json':
             file_data = json.load(open(file))
         elif file[-4:] == '.yml' or file[-5:] == '.yaml':
@@ -55,7 +56,7 @@ def make_diff(data1, data2=None):
     return final_diff
 
 
-def generate_diff(file_1, file_2, format, files_directory='gendiff/files/'):
-    file_1_data = create_data_file(files_directory + file_1)
-    file_2_data = create_data_file(files_directory + file_2)
+def generate_diff(file_1, file_2, format):
+    file_1_data = create_data_file(file_1)
+    file_2_data = create_data_file(file_2)
     return format(make_diff(file_1_data, file_2_data))
