@@ -1,6 +1,8 @@
 import argparse
 
-from gendiff import generate_diff_files
+from gendiff import generate_diff
+from gendiff.styles.stylish import stylish
+from gendiff.styles.plain import plain
 
 
 prog = 'gendiff'
@@ -15,11 +17,13 @@ def main():
     parser.add_argument('-V', '--version',
                         help='output the version number',
                         action='store_true')
-    parser.add_argument('-f', '--format', default='gendiff/files/',
-                        help='output format (default: "stylish")',
-                        action='store_true')
+    parser.add_argument('-f', '--format', default=stylish,
+                        help='output format (default: "stylish")')
     args = parser.parse_args()
-    print(generate_diff_files(args.file_1, args.file_2, args.format))
+    if '--format':
+        if args.format == 'plain':
+            args.format = plain
+    print(generate_diff(args.file_1, args.file_2, args.format))
 
 
 if __name__ == '__main__':

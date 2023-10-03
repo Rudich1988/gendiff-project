@@ -11,3 +11,4 @@
 - [демонстрация функции -help и поиск различий в файлах json формата](https://asciinema.org/a/YyGjmPRfirgZEdODBHglg8fTB)
 - [демонстрация функции -help и поиск различий в файлах json и yml форматов](https://asciinema.org/a/0dx6ZvZtiAlU2PEOsJi5Ur7Ld)
 - [демонстрация функции -help и поиск различий в файлах yml формата](https://asciinema.org/a/1pRmjB6zqxPCMLALjS2Ok7bo9)
+- [поиск различий в файлах json формата с вложенностью](https://asciinema.org/a/7kaeUDnzrelMaRujlys2E4khp)

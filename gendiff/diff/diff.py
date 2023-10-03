@@ -1,8 +1,5 @@
 import json
-#import yaml
 import yaml
-
-from gendiff.modules.stylish import generate_diff
 
 
 def create_data_file(file):
@@ -58,8 +55,7 @@ def make_diff(data1, data2=None):
     return final_diff
 
 
-def generate_diff_files(file_1, file_2, files_directory):
+def generate_diff(file_1, file_2, format, files_directory='gendiff/files/'):
     file_1_data = create_data_file(files_directory + file_1)
     file_2_data = create_data_file(files_directory + file_2)
-    return generate_diff(make_diff(file_1_data, file_2_data))
-    #return make_diff(file_1_data, file_2_data)
+    return format(make_diff(file_1_data, file_2_data))
