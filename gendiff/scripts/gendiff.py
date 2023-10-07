@@ -1,7 +1,7 @@
 import argparse
 
 from gendiff import generate_diff
-from gendiff.styles.stylish import stylish
+from gendiff.styles.stylish import stylish, stylish_1
 from gendiff.styles.plain import plain
 
 
