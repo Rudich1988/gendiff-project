@@ -6,10 +6,16 @@ def equality_check(files_data):
             break
     return flag
 
+def check(value):
+    if type(value) == str:
+        if len(value) == 0:
+            return "''"
+    return value
+
 
 def final_stylish(files_data, indent_quantity=4, enclosure=1):
     if type(files_data) != dict:
-        return str(files_data)
+        return str(check(files_data))
     else:
         finish_string = '{\n'
         if equality_check(files_data) == True:

@@ -14,9 +14,6 @@ def main():
     parser = argparse.ArgumentParser(description, usage)
     parser.add_argument('file_1')
     parser.add_argument('file_2')
-    parser.add_argument('-V', '--version',
-                        help='output the version number',
-                        action='store_true')
     parser.add_argument('-f', '--format', default=stylish,
                         help='output format (default: "stylish")')
     args = parser.parse_args()
