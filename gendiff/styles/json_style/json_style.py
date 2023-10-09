@@ -6,10 +6,13 @@ def equality_check(files_data):
             break
     return flag
 
+
 def check(value):
     if type(value) == str:
         if len(value) == 0:
             return '""'
+        elif value in ['true', 'false', 'null', 'None']:
+            return value
         else:
             return f'"{value}"'
     return value
@@ -26,7 +29,6 @@ def final_stylish(files_data, indent_quantity=4, enclosure=1):
     else:
         finish_string = '{\n'
         if equality_check(files_data) == True:
-            #!!!!
             comma = 0
             for key,value in files_data.items():
                 flag = False
@@ -66,7 +68,6 @@ def stylish_1(data):
             final_data['+ ' + key] = stylish_1(value[1])
         elif 'diff values' in value:
             final_data[key] = stylish_1(value[0])
-            #final_data['+ ' + key] = stylish_1(value[1])
         elif 'diff types values' in value:
             if type(value[0]) == dict:
                 final_data['- ' + key] = value[0]

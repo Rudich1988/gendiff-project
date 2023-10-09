@@ -24,10 +24,8 @@ def create_data_file(file, files_directory='tests/fixtures/'):
             file_data = str(file).lower()
         elif file == None:
             file_data = 'null'
-        #!!!!!
         elif file == 'None' and flag == False:
             file_data == 'null'
-        #!!!
         else:
             file_data = file
         return file_data
@@ -38,32 +36,6 @@ def create_data_file(file, files_directory='tests/fixtures/'):
             file_data[key] = 'null'
     return file_data
 
-'''
-def make_diff(data1, data2=None):
-    if type(data1) != dict:
-        return create_data_file(data1)
-    elif data2 == None:
-        return create_data_file(data1)
-    data1 = create_data_file(data1)
-    data2 = create_data_file(data2)
-    final_diff = {}
-    all_files_keys = sorted(list(set(data1) | (set(data2))))
-    for key in all_files_keys:
-        if (key in list(set(data1) & set(data2)) and
-            (data1[key] == data2[key] or
-             (type(data1[key]) == type(data2[key]) == dict))):
-            final_diff[str(key)] = make_diff(data1[key], data2[key])
-        elif (key in list(set(data1) & set(data2)) and
-              (data1[key] != data2[key] and (type(data1[key]) != dict or
-                                             type(data2[key]) != dict))):
-            final_diff['- ' + str(key)] = make_diff(data1[key])
-            final_diff['+ ' + str(key)] = make_diff(data2[key])
-        elif key not in list(set(data1) & set(data2)) and key in data1:
-            final_diff['- ' + str(key)] = make_diff(data1[key])
-        elif key not in list(set(data1) & set(data2)) and key in data2:
-            final_diff['+ ' + str(key)] = make_diff(data2[key])
-    return final_diff
-'''
 
 def make_diff(data1, data2=None):
     if type(data1) != dict:
@@ -96,17 +68,7 @@ def make_diff(data1, data2=None):
     return final_diff
 
 
-
-    
-
-
-
 def generate_diff(file_1, file_2, format):
     file_1_data = create_data_file(file_1)
     file_2_data = create_data_file(file_2)
-    #return format(make_diff(file_1_data, file_2_data))
-    #return make_diff(file_1_data, file_2_data)
     return format(make_diff(file_1_data, file_2_data))
-    #return test(file_1_data, file_2_data)# == make_diff('file1.json', 'file2.json')
-    #return make_diff(file_1_data, file_2_data) == format(test(file_1_data, file_2_data))
-    #return format(stylish_1(test(file_1_data, file_2_data)))

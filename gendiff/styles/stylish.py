@@ -32,8 +32,6 @@ def final_stylish(files_data, indent_quantity=4, enclosure=1):
     return finish_string
 
 
-
-
 def stylish_1(data):
     if type(data) != dict:
         return str(data)

@@ -3,6 +3,7 @@ def check_value(value):
         return False
     return True
 
+
 def get_string(data, string=''):
     if type(data) != dict:
         if 'in file2' in data and len(data) == 2:
@@ -52,7 +53,6 @@ def plain(data):
         result = f'{get_string(value, key)}\n'
         if result != '':
             final_string += result
-        #final_string += f'{plain(value, key)}\n'
     show_result = ''
     for row_of_differences in final_string.split('\n'):
         if row_of_differences != '':

@@ -1,6 +1,10 @@
+import yaml
+
+
 from gendiff import generate_diff
 from gendiff.styles.stylish import stylish
 from gendiff.styles.plain import plain
+from gendiff.styles.json_style.json_style import stylish_12
 
 TXT_FILES_DIRECTORY = 'tests/fixtures/txt_files/'
 
@@ -56,3 +60,8 @@ def test_type_plain():
 def test_different_files_types_stylish():
     result = generate_diff('file1.yml', 'file2.json', format=stylish)
     assert result == read_txt_files(TXT_FILES_DIRECTORY + 'files_yaml_stylish.txt')
+
+
+def test_different_files_format_json():
+    result = generate_diff('file1.json', 'file2.json', format=stylish_12)
+    assert result == read_txt_files(TXT_FILES_DIRECTORY + 'diff_files_json_format.txt')    
