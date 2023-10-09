@@ -2,7 +2,7 @@ import json
 import yaml
 
 
-def create_data_file(file, files_directory='gendiff/files/'):
+def create_data_file(file, files_directory='tests/fixtures/'):
     flag = True
     if isinstance(type(file), dict):
         file_data = file

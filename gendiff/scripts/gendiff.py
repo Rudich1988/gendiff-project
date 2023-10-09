@@ -1,8 +1,9 @@
 import argparse
 
 from gendiff import generate_diff
-from gendiff.styles.stylish import stylish, stylish_1
+from gendiff.styles.stylish import stylish
 from gendiff.styles.plain import plain
+from gendiff.styles.json_style.json_style import stylish_12
 
 
 prog = 'gendiff'
@@ -20,6 +21,8 @@ def main():
     if '--format':
         if args.format == 'plain':
             args.format = plain
+        elif args.format == 'json':
+            args.format = stylish_12
     print(generate_diff(args.file_1, args.file_2, args.format))
 
 
