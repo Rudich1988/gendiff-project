@@ -82,7 +82,7 @@ def make_diff(data1, data2=None):
     return final_diff
 
 
-def generate_diff(file_1, file_2, format):
+def generate_diff(file_1, file_2, format='stylish'):
     format_function = get_format_function(format)
     file_1_data = create_data_file(file_1)
     file_2_data = create_data_file(file_2)
