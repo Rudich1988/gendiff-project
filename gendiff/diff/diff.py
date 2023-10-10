@@ -2,6 +2,20 @@ import json
 import yaml
 
 
+from gendiff.styles.stylish import stylish
+from gendiff.styles.plain import plain
+from gendiff.styles.json_style import stylish_12
+
+
+def get_format_function(format_name):
+    if format_name == 'stylish':
+        return stylish
+    elif format_name == 'plain':
+        return plain
+    elif format_name == 'json':
+        return stylish_12
+
+
 def create_data_file(file, files_directory='tests/fixtures/'):
     flag = True
     if isinstance(type(file), dict):
@@ -55,7 +69,7 @@ def make_diff(data1, data2=None):
             else:
                 final_diff[key] = (make_diff(data1[key]), make_diff(data2[key]), 'not dict and diff')
         elif key in data1 and key in data2 and data1[key] != data2[key]:
-            if type(data1[key]) != type(data2[key]) and (type(data1[key])== dict or type(data2[key])==dict):
+            if type(data1[key]) != type(data2[key]) and (type(data1[key]) == dict or type(data2[key]) == dict):
                 final_diff[key] = (data1[key], data2[key], 'diff types values')
             if key in data1 and key in data2 and data1[key] != data2[key] and type(data1[key]) == type(data2[key]) == dict:
                 final_diff[key] = (make_diff(data1[key], data2[key]), 'diff values')
@@ -69,6 +83,7 @@ def make_diff(data1, data2=None):
 
 
 def generate_diff(file_1, file_2, format):
+    format_function = get_format_function(format)
     file_1_data = create_data_file(file_1)
     file_2_data = create_data_file(file_2)
-    return format(make_diff(file_1_data, file_2_data))
+    return format_function(make_diff(file_1_data, file_2_data))
