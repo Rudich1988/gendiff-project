@@ -36,7 +36,7 @@ def test_yaml_files_stylish():
     result = generate_diff('file1.yaml', 'file2.yaml', format='stylish')
     assert result == read_txt_files(TXT_FILES_DIRECTORY + 'files_yaml_stylish.txt')
 
-
+#lkjklkjklkj
 def test_yml_files_stylish():
     result = generate_diff('file1.yml', 'file2.yml', format='stylish')
     assert result == read_txt_files(TXT_FILES_DIRECTORY + 'files_yaml_stylish.txt')
