@@ -24,10 +24,12 @@ def create_data_file(file, files_directory='tests/fixtures/'):
         if file in [False, True]:
             file_data = str(file).lower()
         elif file[-5:] == '.json':
-            file = files_directory + file
+            if '/' not in file:
+                file = files_directory + file
             file_data = json.load(open(file))
         elif file[-4:] == '.yml' or file[-5:] == '.yaml':
-            file = files_directory + file
+            if '/' not in file:
+                file = files_directory + file
             with open(file, 'r') as yaml_file:
                 file_data = yaml.safe_load(yaml_file)
                 flag = False
