@@ -14,4 +14,4 @@ def parser():
     parser.add_argument('-f', '--format', default='stylish',
                         help='output format (default: "stylish")')
     args = parser.parse_args()
-    return generate_diff(args.file_1, args.file_2, args.format, files_directory='tests/fixtures/')
+    return generate_diff(args.file_1, args.file_2, args.format)
