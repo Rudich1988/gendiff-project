@@ -18,7 +18,7 @@ def get_format_function(format_name):
 
 def create_data_file(file, files_directory='tests/fixtures/'):
     flag = True
-    if type(file) is int:
+    if type(file) == int:
         return file
     if type(file) is dict:
         file_data = file
