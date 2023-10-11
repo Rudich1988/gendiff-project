@@ -5,6 +5,8 @@ import yaml
 from gendiff.styles.stylish import stylish
 from gendiff.styles.plain import plain
 from gendiff.styles.json_style import stylish_12
+
+
 def get_format_function(format_name):
     if format_name == 'stylish':
         return stylish
@@ -12,12 +14,26 @@ def get_format_function(format_name):
         return plain
     elif format_name == 'json':
         return stylish_12
+    
+
+def check_value(value):
+    if type(value) is int and (value is not True and value is not False):
+        return value
+    else:
+        if value in [False, True]:
+            file_data = str(value).lower()
+        elif value == None:
+            file_data = 'null'
+        else:
+            file_data = value
+        return file_data
+
 
 
 def create_data_file(file, files_directory='tests/fixtures/'):
-    if isinstance(file, int) and (file is not True and file is not False):
-        return file
-    elif type(file) is str:
+    #if isinstance(file, int) and (file is not True and file is not False):
+     #   return file
+    if type(file) is str:
         if file[-5:] == '.json':
             if '/' not in file:
                 file = files_directory + file
@@ -30,12 +46,13 @@ def create_data_file(file, files_directory='tests/fixtures/'):
         else:
             return file
     else:
-        if file in [False, True]:
-            file_data = str(file).lower()
-        elif file == None:
-            file_data = 'null'
-        else:
-            file_data = file
+        file_data = check_value(file)
+        #if file in [False, True]:
+         #   file_data = str(file).lower()
+        #elif file == None:
+         #   file_data = 'null'
+        #else:
+         #   file_data = file
         return file_data
     for key, value in file_data.items():
         file_data[key] = create_data_file(value)
