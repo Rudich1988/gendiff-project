@@ -1,7 +1,9 @@
 def check_value(value):
-    if value in ['false', 'true', 'null']:
-        return False
-    return True
+    if value in ['false', 'true', 'null'] or type(value) == int:
+        return value
+    elif type(value) == dict:
+        return '[complex value]'
+    return f"'{value}'"
 
 
 def get_string(data, string=''):
@@ -19,23 +21,23 @@ def get_string(data, string=''):
         elif 'diff types values' in data:
             if type(data[0]) == dict:
                 if check_value(data[1]):                            #!!!!
-                    return f"Property '{string}' was updated. From '{data[0]}' to '{data[1]}'\n"
+                    return f"Property '{string}' was updated. From {check_value(data[0])} to {check_value(data[1])}\n"
                 else:
-                    return f"Property '{string}' was updated. From '{data[0]}' to {data[1]}\n"
+                    return f"Property '{string}' was updated. From {check_value(data[0])} to {check_value(data[1])}\n"
             elif type(data[1]) == dict:
                 if check_value(data[0]):                                           #!!!!
-                    return f"Property '{string}' was updated. From '{data[0]}' to {data[1]}\n"
+                    return f"Property '{string}' was updated. From {check_value(data[0])} to {check_value(data[1])}\n"
                 else:
-                    return f"Property '{string}' was updated. From '{data[0]}' to {data[1]}\n"
+                    return f"Property '{string}' was updated. From {check_value(data[0])} to {check_value(data[1])}\n"
         elif 'not dict and diff' in data:
             if check_value(data[0]) == True and check_value(data[1]) == True:
-                return f"Property '{string}' was updated. From '{data[0]}' to '{data[1]}'\n"
+                return f"Property '{string}' was updated. From {check_value(data[0])} to {check_value(data[1])}\n"
             elif check_value(data[0]) == True and check_value(data[1]) == False:
-                return f"Property '{string}' was updated. From '{data[0]}' to {data[1]}\n"
+                return f"Property '{string}' was updated. From {check_value(data[0])} to {check_value(data[1])}\n"
             elif check_value(data[1]) == True and check_value(data[0]) == False:
-                return f"Property '{string}' was updated. From {data[0]} to '{data[1]}'\n"
+                return f"Property '{string}' was updated. From {check_value(data[0])} to {check_value(data[1])}\n"
             else:
-                return f"Property '{string}' was updated. From {data[0]} to {data[1]}\n"
+                return f"Property '{string}' was updated. From {check_value(data[0])} to {check_value(data[1])}\n"
         elif 'in 2 files' in data:
             return '\n'
         elif 'diff values' in data:
