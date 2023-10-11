@@ -19,8 +19,6 @@ def create_data_file(file, files_directory='tests/fixtures/'):
     if isinstance(file, int) and (file is not True and file is not False):
         return file
     if type(file) is str:
-        #if file in [False, True]:
-         #   file_data = str(file).lower()
         if file[-5:] == '.json':
             if '/' not in file:
                 file = files_directory + file
@@ -38,8 +36,8 @@ def create_data_file(file, files_directory='tests/fixtures/'):
             file_data = str(file).lower()
         elif file == None:
             file_data = 'null'
-        elif file == 'None' and flag == False:
-            file_data == 'null'
+        #elif file == 'None' and flag == False:
+         #   file_data == 'null'
         else:
             file_data = file
         return file_data
