@@ -15,10 +15,9 @@ def get_format_function(format_name):
 
 
 def create_data_file(file, files_directory='tests/fixtures/'):
-    flag = True
     if isinstance(file, int) and (file is not True and file is not False):
         return file
-    if type(file) is str:
+    elif type(file) is str:
         if file[-5:] == '.json':
             if '/' not in file:
                 file = files_directory + file
@@ -28,7 +27,6 @@ def create_data_file(file, files_directory='tests/fixtures/'):
                 file = files_directory + file
             with open(file, 'r') as yaml_file:
                 file_data = yaml.safe_load(yaml_file)
-                flag = False
         else:
             return file
     else:
@@ -36,25 +34,13 @@ def create_data_file(file, files_directory='tests/fixtures/'):
             file_data = str(file).lower()
         elif file == None:
             file_data = 'null'
-        #elif file == 'None' and flag == False:
-         #   file_data == 'null'
         else:
             file_data = file
         return file_data
     for key, value in file_data.items():
-        if value is False or value is True:
-            file_data[key] = str(value).lower()
-        elif file_data[key] == 'null':
-            file_data[key] = 'null'
+        file_data[key] = create_data_file(value)
     return file_data
 
-#!!!!!
-def check_dict(dicitionry):
-    final_data = {}
-    for key,value in dicitionry.items():
-        final_data[key] = create_data_file(value)
-        return final_data
-#!!!!
 
 def make_diff(data1, data2=None):
     if type(data1) != dict:
