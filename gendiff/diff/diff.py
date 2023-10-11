@@ -31,10 +31,12 @@ def check_value(value):
 def create_data_file(value_name, files_directory='tests/fixtures/'):
     if type(value_name) is str:
         if value_name[-5:] == '.json':
+            filepath = value_name
             if '/' not in value_name:
                 filepath = files_directory + value_name
             file_data = json.load(open(filepath))
         elif value_name[-4:] == '.yml' or value_name[-5:] == '.yaml':
+            filepath = value_name
             if '/' not in value_name:
                 filepath = files_directory + value_name
             with open(filepath, 'r') as yaml_file:
