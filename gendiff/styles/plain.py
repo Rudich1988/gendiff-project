@@ -13,9 +13,9 @@ def get_string(data, string=''):
                 return f"Property '{string}' was added with value: [complex value]\n"
             else:
                 if check_value(data[0]):
-                    return f"Property '{string}' was added with value: '{data[0]}'\n"
+                    return f"Property '{string}' was added with value: {check_value(data[0])}\n"
                 else:
-                    return f"Property '{string}' was added with value: {data[0]}\n"
+                    return f"Property '{string}' was added with value: {check_value(data[0])}\n"
         elif 'in file1' in data and len(data) == 2:
             return f"Property '{string}' was removed\n"
         elif 'diff types values' in data:
