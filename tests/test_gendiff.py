@@ -70,3 +70,7 @@ def test_different_files_format_json():
 def test_ttt():
     result = generate_diff('test1.json', 'test2.json', format='plain')
     assert result == read_txt_files(TXT_FILES_DIRECTORY + 'ttt.txt')
+
+def test_jjj():
+    result = generate_diff('test1.json', 'test2.json', format='stylish')
+    assert result == read_txt_files(TXT_FILES_DIRECTORY + 'jjj.txt')

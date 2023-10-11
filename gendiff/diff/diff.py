@@ -16,7 +16,7 @@ def get_format_function(format_name):
 
 def create_data_file(file, files_directory='tests/fixtures/'):
     flag = True
-    if isinstance(file, int):
+    if isinstance(file, int) and (file is not True and file is not False):
         return file
     #elif isinstance(type(file), dict):
      #   file_data = file
