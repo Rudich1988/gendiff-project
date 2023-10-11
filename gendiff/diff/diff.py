@@ -18,9 +18,9 @@ def get_format_function(format_name):
 
 def create_data_file(file, files_directory='tests/fixtures/'):
     flag = True
-    if isinstance(type(file), int):
+    if type(file) is int:
         return file
-    if isinstance(type(file), dict):
+    if type(file) is dict:
         file_data = file
     elif type(file) is str:
         if file in [False, True]:
