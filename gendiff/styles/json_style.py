@@ -64,21 +64,11 @@ def stylish_1(data):
             final_data['+ ' + key] = value[0]
         elif 'in 2 files' in value:
             final_data[key] = stylish_1(value[0])
-        #elif 'not dict and diff' in value:
-         #   if type(value[0]) == dict:
-          #      final_data['- ' + key] = value[0]
-           #     final_data['+ ' + key] = stylish_1(value[1])
-            #elif type(value[1]) == dict:
-             #   final_data['- ' + key] = stylish_1(value[0])
-              #  final_data['+ ' + key] = value[1]
-            #else:
-             #   final_data['- ' + key] = stylish_1(value[0])
-              #  final_data['+ ' + key] = stylish_1(value[1])
         elif 'diff values' in value:
             final_data[key] = stylish_1(value[0])
         elif 'diff types values' in value:
             if type(value[0]) == dict:
-                final_data['- ' + key] = value[0]#!!!!!!!!
+                final_data['- ' + key] = value[0]
                 final_data['+ ' + key] = stylish_1(value[1])
             elif type(value[1]) == dict:
                 final_data['- ' + key] = stylish_1(value[0])
