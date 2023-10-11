@@ -22,6 +22,7 @@ def test_json_files_plain():
     assert result == read_txt_files(TXT_FILES_DIRECTORY + 'files_yaml_plain.txt')
 
 
+
 def test_json_files_stylish():
     result = generate_diff('file1.json', 'file2.json', format='stylish')
     assert result == read_txt_files(TXT_FILES_DIRECTORY + 'files_yaml_stylish.txt')

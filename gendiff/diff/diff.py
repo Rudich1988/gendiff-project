@@ -1,10 +1,9 @@
 import json
+
 import yaml
-
-
-from gendiff.styles.stylish import stylish
-from gendiff.styles.plain import plain
 from gendiff.styles.json_style import stylish_12
+from gendiff.styles.plain import plain
+from gendiff.styles.stylish import stylish
 
 
 def get_format_function(format_name):
@@ -29,30 +28,21 @@ def check_value(value):
         return file_data
 
 
-
-def create_data_file(file, files_directory='tests/fixtures/'):
-    #if isinstance(file, int) and (file is not True and file is not False):
-     #   return file
-    if type(file) is str:
-        if file[-5:] == '.json':
-            if '/' not in file:
-                file = files_directory + file
-            file_data = json.load(open(file))
-        elif file[-4:] == '.yml' or file[-5:] == '.yaml':
-            if '/' not in file:
-                file = files_directory + file
-            with open(file, 'r') as yaml_file:
+def create_data_file(value_name, files_directory='tests/fixtures/'):
+    if type(value_name) is str:
+        if value_name[-5:] == '.json':
+            if '/' not in value_name:
+                filepath = files_directory + value_name
+            file_data = json.load(open(filepath))
+        elif value_name[-4:] == '.yml' or value_name[-5:] == '.yaml':
+            if '/' not in value_name:
+                filepath = files_directory + value_name
+            with open(filepath, 'r') as yaml_file:
                 file_data = yaml.safe_load(yaml_file)
         else:
-            return file
+            return value_name
     else:
-        file_data = check_value(file)
-        #if file in [False, True]:
-         #   file_data = str(file).lower()
-        #elif file == None:
-         #   file_data = 'null'
-        #else:
-         #   file_data = file
+        file_data = check_value(value_name)
         return file_data
     for key, value in file_data.items():
         file_data[key] = create_data_file(value)
@@ -60,29 +50,40 @@ def create_data_file(file, files_directory='tests/fixtures/'):
 
 
 def make_diff(data1, data2=None):
-    if type(data1) != dict:
+    if type(data1) != dict or data2 is None:
         return create_data_file(data1)
-    elif data2 == None:
-        return create_data_file(data1)
-    elif type(data1) == dict and data2 == None:
-        return create_data_file(data1)
+    #elif data2 == None:
+     #   return create_data_file(data1)
+    #elif type(data1) == dict and data2 == None:
+    #    return create_data_file(data1)
     data1 = create_data_file(data1)
     data2 = create_data_file(data2)
     final_diff = {}
     all_files_keys = sorted(list(set(data1) | (set(data2))))
     for key in all_files_keys:
-        if key in data1 and key in data2 and (type(data1[key]) != dict or type(data2[key]) != dict):
+        if key in data1 and key in data2: #and (type(data1[key]) != dict or type(data2[key]) != dict):
             if data1[key] == data2[key]:
                 final_diff[key] = (make_diff(data1[key]), 'in 2 files')
+            #!!!
             else:
-                final_diff[key] = (make_diff(data1[key]), make_diff(data2[key]), 'not dict and diff')
-        elif key in data1 and key in data2 and data1[key] != data2[key]:
-            if type(data1[key]) != type(data2[key]) and (type(data1[key]) == dict or type(data2[key]) == dict):
-                final_diff[key] = (data1[key], data2[key], 'diff types values')
-            if key in data1 and key in data2 and data1[key] != data2[key] and type(data1[key]) == type(data2[key]) == dict:
-                final_diff[key] = (make_diff(data1[key], data2[key]), 'diff values')
-            elif key in data1 and key not in data2:
-                final_diff[key] = (make_diff(data1[key]), make_diff(data2[key]), 'in file1')
+                if data1[key] != data2[key] and type(data1[key]) == type(data2[key]) == dict:
+                    final_diff[key] = (make_diff(data1[key], data2[key]), 'diff values')
+                else:
+                    final_diff[key] = (make_diff(data1[key]), make_diff(data2[key]), 'diff types values')
+
+
+            #!!!
+            #else:
+            #    final_diff[key] = (make_diff(data1[key]), make_diff(data2[key]), 'not dict and diff')
+
+        #elif key in data1 and key in data2 and data1[key] != data2[key]:
+         #   if type(data1[key]) != type(data2[key]) and (type(data1[key]) == dict or type(data2[key]) == dict):
+          #      final_diff[key] = (make_diff(data1[key]), make_diff(data2[key]), 'diff types values')
+
+           # elif key in data1 and key in data2 and data1[key] != data2[key] and type(data1[key]) == type(data2[key]) == dict:
+            #    final_diff[key] = (make_diff(data1[key], data2[key]), 'diff values')
+            #elif key in data1 and key not in data2:
+             #   final_diff[key] = (make_diff(data1[key]), make_diff(data2[key]), 'in file1')
         elif key not in data1 and key in data2:
             final_diff[key] = (make_diff(data2[key]), 'in file2')
         elif key not in data2 and key in data1:
