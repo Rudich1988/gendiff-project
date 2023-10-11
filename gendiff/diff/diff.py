@@ -13,7 +13,7 @@ def get_format_function(format_name):
         return plain
     elif format_name == 'json':
         return stylish_12
-    
+
 
 def check_value(value):
     if type(value) is int and (value is not True and value is not False):
@@ -21,7 +21,7 @@ def check_value(value):
     else:
         if value in [False, True]:
             file_data = str(value).lower()
-        elif value == None:
+        elif value is None:#!!!
             file_data = 'null'
         else:
             file_data = value
@@ -52,7 +52,7 @@ def create_data_file(value_name, files_directory='tests/fixtures/'):
 
 
 def make_diff(data1, data2=None):
-    if type(data1) != dict or data2 is None:
+    if type(data1) is not dict or data2 is None:#!!!
         return create_data_file(data1)
     data1 = create_data_file(data1)
     data2 = create_data_file(data2)
@@ -63,10 +63,15 @@ def make_diff(data1, data2=None):
             if data1[key] == data2[key]:
                 final_diff[key] = (make_diff(data1[key]), 'in 2 files')
             else:
-                if data1[key] != data2[key] and type(data1[key]) == type(data2[key]) == dict:
-                    final_diff[key] = (make_diff(data1[key], data2[key]), 'diff values')
+                if (data1[key] != data2[key]
+                    and type(data1[key]) is type(data2[key]) is dict):#!!!
+                    final_diff[key] = (make_diff(data1[key],
+                                                 data2[key]),
+                                                 'diff values')
                 else:
-                    final_diff[key] = (make_diff(data1[key]), make_diff(data2[key]), 'diff types values')
+                    final_diff[key] = (make_diff(data1[key]),
+                                       make_diff(data2[key]),
+                                       'diff types values')
         elif key not in data1 and key in data2:
             final_diff[key] = (make_diff(data2[key]), 'in file2')
         elif key not in data2 and key in data1:
