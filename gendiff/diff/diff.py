@@ -18,12 +18,10 @@ def create_data_file(file, files_directory='tests/fixtures/'):
     flag = True
     if isinstance(file, int) and (file is not True and file is not False):
         return file
-    #elif isinstance(type(file), dict):
-     #   file_data = file
-    if type(file) == str:
-        if file in [False, True]:
-            file_data = str(file).lower()
-        elif file[-5:] == '.json':
+    if type(file) is str:
+        #if file in [False, True]:
+         #   file_data = str(file).lower()
+        if file[-5:] == '.json':
             if '/' not in file:
                 file = files_directory + file
             file_data = json.load(open(file))
