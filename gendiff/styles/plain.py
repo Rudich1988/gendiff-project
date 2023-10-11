@@ -20,12 +20,12 @@ def get_string(data, string=''):
             return f"Property '{string}' was removed\n"
         elif 'diff types values' in data:
             if type(data[0]) == dict:
-                if check_value(data[1]):                            #!!!!
+                if check_value(data[1]):
                     return f"Property '{string}' was updated. From {check_value(data[0])} to {check_value(data[1])}\n"
                 else:
                     return f"Property '{string}' was updated. From {check_value(data[0])} to {check_value(data[1])}\n"
             elif type(data[1]) == dict:
-                if check_value(data[0]):                                           #!!!!
+                if check_value(data[0]):
                     return f"Property '{string}' was updated. From {check_value(data[0])} to {check_value(data[1])}\n"
                 else:
                     return f"Property '{string}' was updated. From {check_value(data[0])} to {check_value(data[1])}\n"
@@ -60,7 +60,3 @@ def plain(data):
         if row_of_differences != '':
             show_result += f'{row_of_differences}\n'
     return show_result[:-1]
-
-
-
-    
