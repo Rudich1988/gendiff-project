@@ -21,7 +21,7 @@ def check_value(value):
     else:
         if value in [False, True]:
             file_data = str(value).lower()
-        elif value is None:#!!!
+        elif value is None:
             file_data = 'null'
         else:
             file_data = value
@@ -51,8 +51,22 @@ def create_data_file(value_name, files_directory='tests/fixtures/'):
     return file_data
 
 
+def check_same_keys(key, file1_data, file2_data):
+    if key in file1_data and key in file2_data:
+        if file1_data[key] == file2_data[key]:
+            return (make_diff(file1_data[key]), 'in 2 files')
+        else:
+            if (file1_data[key] != file2_data[key]
+                and type(file1_data[key]) is type(file2_data[key]) is dict):
+                return (make_diff(file1_data[key],
+                        file2_data[key]),'diff values')
+            else:
+                return (make_diff(file1_data[key]), make_diff(file2_data[key]),
+                        'diff types values')
+
+
 def make_diff(data1, data2=None):
-    if type(data1) is not dict or data2 is None:#!!!
+    if type(data1) is not dict or data2 is None:
         return create_data_file(data1)
     data1 = create_data_file(data1)
     data2 = create_data_file(data2)
@@ -60,18 +74,19 @@ def make_diff(data1, data2=None):
     all_files_keys = sorted(list(set(data1) | (set(data2))))
     for key in all_files_keys:
         if key in data1 and key in data2:
-            if data1[key] == data2[key]:
-                final_diff[key] = (make_diff(data1[key]), 'in 2 files')
-            else:
-                if (data1[key] != data2[key]
-                    and type(data1[key]) is type(data2[key]) is dict):#!!!
-                    final_diff[key] = (make_diff(data1[key],
-                                                 data2[key]),
-                                                 'diff values')
-                else:
-                    final_diff[key] = (make_diff(data1[key]),
-                                       make_diff(data2[key]),
-                                       'diff types values')
+            final_diff[key] = check_same_keys(key, data1, data2)#!!!
+            #if data1[key] == data2[key]:
+             #   final_diff[key] = (make_diff(data1[key]), 'in 2 files')
+            #else:
+             #   if (data1[key] != data2[key]
+              #      and type(data1[key]) is type(data2[key]) is dict):
+               #     final_diff[key] = (make_diff(data1[key],
+                #                                 data2[key]),
+                 #                                'diff values')
+                #else:
+                 #   final_diff[key] = (make_diff(data1[key]),
+                  #                     make_diff(data2[key]),
+                   #                    'diff types values')
         elif key not in data1 and key in data2:
             final_diff[key] = (make_diff(data2[key]), 'in file2')
         elif key not in data2 and key in data1:
