@@ -32,7 +32,7 @@ def get_string(data, string=''):
     return final_string
 
 
-def plain(data):
+def get_plain_style(data):
     final_string = ''
     for key, value in data.items():
         result = f'{get_string(value, key)}\n'

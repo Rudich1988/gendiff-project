@@ -1,18 +1,18 @@
 import json
 
 import yaml
-from gendiff.styles.json_style import stylish_12
-from gendiff.styles.plain import plain
-from gendiff.styles.stylish import stylish
+from gendiff.styles.json_style import get_json_style
+from gendiff.styles.plain import get_plain_style
+from gendiff.styles.stylish import get_stylish
 
 
 def get_format_function(format_name):
     if format_name == 'stylish':
-        return stylish
+        return get_stylish
     elif format_name == 'plain':
-        return plain
+        return get_plain_style
     elif format_name == 'json':
-        return stylish_12
+        return get_json_style
 
 
 def check_value(value):
