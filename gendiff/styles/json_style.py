@@ -2,15 +2,6 @@ from gendiff.styles.data_conversion import data_conversion
 
 INDENT_QUANTITY = 4
 
-'''
-def equality_check(files_data):
-    flag = True
-    for key in files_data.keys():
-        if key[:2] == '+ ' or key[:2] == '- ':
-            flag = False
-            break
-    return flag
-'''
 
 def transformation_value(value):
     if type(value) is str:
@@ -39,9 +30,15 @@ def final_style(files_data, enclosure=1, flag=True):
             count += 1
             possible_comma = get_comma(count, len(files_data))
             if key[:2] != '- ' and key[:2] != '+ ':
-                finish_string += (INDENT_QUANTITY * enclosure) * ' ' + f'"{key}"' + ': ' + final_style(value, enclosure=enclosure + 1) + possible_comma + '\n'
+                finish_string += ((INDENT_QUANTITY * enclosure) * ' ' +
+                                  f'"{key}"' + ': ' +
+                                  final_style(value, enclosure=enclosure + 1)
+                                  + possible_comma + '\n')
             else:
-                finish_string += (INDENT_QUANTITY * enclosure - 2) * ' ' + f'"{key}"' + ': ' + final_style(value, enclosure=enclosure + 1) + possible_comma + '\n'
+                finish_string += ((INDENT_QUANTITY * enclosure - 2) * ' ' +
+                                  f'"{key}"' + ': ' +
+                                  final_style(value, enclosure=enclosure + 1)
+                                  + possible_comma + '\n')
         finish_string += (INDENT_QUANTITY * (enclosure - 1)) * ' ' + '}'
         return finish_string
 
