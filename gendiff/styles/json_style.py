@@ -30,9 +30,9 @@ def final_style(files_data, enclosure=1, flag=True):
             count += 1
             possible_comma = get_comma(count, len(files_data))
             if key[:2] != '- ' and key[:2] != '+ ':
-                finish_string += ((INDENT_QUANTITY * enclosure) * ' ' +
-                                  f'"{key}"' + ': ' +
-                                  final_style(value, enclosure=enclosure + 1)
+                finish_string += ((INDENT_QUANTITY * enclosure) * ' '
+                                  + f'"{key}"' + ': '
+                                  + final_style(value, enclosure=enclosure + 1)
                                   + possible_comma + '\n')
             else:
                 finish_string += ((INDENT_QUANTITY * enclosure - 2) * ' ' +
