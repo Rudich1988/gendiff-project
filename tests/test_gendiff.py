@@ -1,6 +1,3 @@
-import yaml
-
-
 from gendiff import generate_diff
 from gendiff.styles.stylish import stylish
 from gendiff.styles.plain import plain

@@ -26,7 +26,7 @@ def check_value(value):
         else:
             file_data = value
         return file_data
-    
+
 
 def processing_filepath(filepath, directory='tests/fixtures/'):
     if filepath[-5:] == '.json':
@@ -39,24 +39,12 @@ def processing_filepath(filepath, directory='tests/fixtures/'):
         with open(filepath, 'r') as yaml_file:
             file_data = yaml.safe_load(yaml_file)
     return file_data
-        
-
 
 
 def create_data_file(value_name, files_directory='tests/fixtures/'):
     if type(value_name) is str:
-        if value_name[-5:] in  ['.json', '.yaml'] or value_name[-4:] == '.yml':
+        if value_name[-5:] in ['.json', '.yaml'] or value_name[-4:] == '.yml':
             file_data = processing_filepath(value_name)
-            #filepath = value_name
-            #if '/' not in value_name:
-             #   filepath = files_directory + value_name
-            #file_data = json.load(open(filepath))
-        #elif value_name[-4:] == '.yml' or value_name[-5:] == '.yaml':
-         #   filepath = value_name
-          #  if '/' not in value_name:
-           #     filepath = files_directory + value_name
-            #with open(filepath, 'r') as yaml_file:
-             #   file_data = yaml.safe_load(yaml_file)
         else:
             return value_name
     else:

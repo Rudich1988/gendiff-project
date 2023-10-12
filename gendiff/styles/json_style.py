@@ -8,7 +8,7 @@ def equality_check(files_data):
 
 
 def check(value):
-    if type(value) == str:
+    if type(value) is str:
         if len(value) == 0:
             return '""'
         elif value in ['true', 'false', 'null', 'None']:
@@ -19,17 +19,17 @@ def check(value):
 
 
 def get_comma(flag):
-    if flag == False:
+    if flag is False:
         return ','
     return ''
 
 
 def final_stylish(files_data, indent_quantity=4, enclosure=1):
-    if type(files_data) != dict:
+    if type(files_data) is not dict:
         return str(check(files_data))
     else:
         finish_string = '{\n'
-        if equality_check(files_data) == True:
+        if equality_check(files_data) is True:
             comma = 0
             for key, value in files_data.items():
                 flag = False
@@ -37,7 +37,7 @@ def final_stylish(files_data, indent_quantity=4, enclosure=1):
                 if comma == len(files_data):
                     flag = True
                 finish_string += (indent_quantity * enclosure) * ' ' + f'"{key}"' + ': ' + final_stylish(value, enclosure=enclosure + 1) + get_comma(flag) + '\n'
-            finish_string += (indent_quantity * (enclosure - 1)) * ' '  + '}'
+            finish_string += (indent_quantity * (enclosure - 1)) * ' ' + '}'
             return finish_string
         comma = 0
         for key, value in files_data.items():
@@ -49,12 +49,12 @@ def final_stylish(files_data, indent_quantity=4, enclosure=1):
                 finish_string += (indent_quantity * enclosure) * ' ' + f'"{key}"' + ': ' + final_stylish(value, enclosure=enclosure + 1) + get_comma(flag) + '\n'
             else:
                 finish_string += (indent_quantity * enclosure - 2) * ' ' + f'"{key}"' + ': ' + final_stylish(value, enclosure=enclosure + 1) + get_comma(flag) + '\n'
-        finish_string += (indent_quantity * (enclosure - 1)) * ' '  + '}'
+        finish_string += (indent_quantity * (enclosure - 1)) * ' ' + '}'
     return finish_string
 
 
 def stylish_1(data):
-    if type(data) != dict:
+    if type(data) is not dict:
         return str(data)
     final_data = {}
     for key, value in data.items():
@@ -67,10 +67,10 @@ def stylish_1(data):
         elif 'diff values' in value:
             final_data[key] = stylish_1(value[0])
         elif 'diff types values' in value:
-            if type(value[0]) == dict:
+            if type(value[0]) is dict:
                 final_data['- ' + key] = value[0]
                 final_data['+ ' + key] = stylish_1(value[1])
-            elif type(value[1]) == dict:
+            elif type(value[1]) is dict:
                 final_data['- ' + key] = stylish_1(value[0])
                 final_data['+ ' + key] = value[1]
             else:
