@@ -35,9 +35,9 @@ def final_style(files_data, enclosure=1, flag=True):
                                   + final_style(value, enclosure=enclosure + 1)
                                   + possible_comma + '\n')
             else:
-                finish_string += ((INDENT_QUANTITY * enclosure - 2) * ' ' +
-                                  f'"{key}"' + ': ' +
-                                  final_style(value, enclosure=enclosure + 1)
+                finish_string += ((INDENT_QUANTITY * enclosure - 2) * ' '
+                                  + f'"{key}"' + ': '
+                                  + final_style(value, enclosure=enclosure + 1)
                                   + possible_comma + '\n')
         finish_string += (INDENT_QUANTITY * (enclosure - 1)) * ' ' + '}'
         return finish_string
