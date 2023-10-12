@@ -25,9 +25,6 @@ def data_conversion(data):
         if 'in file1' in value or 'in file2' in value:
             new_key = check_description_data(key, value)
             final_data[new_key] = value[0]
-            #final_data['- ' + key] = value[0]
-        #elif 'in file2' in value:
-         #   final_data['+ ' + key] = value[0]
         elif 'in 2 files' in value or 'diff values' in value:
             final_data[key] = data_conversion(value[0])
         elif 'diff types values' in value:
