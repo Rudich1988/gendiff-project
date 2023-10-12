@@ -1,13 +1,13 @@
 def check_value(value):
-    if value in ['false', 'true', 'null'] or type(value) == int:
+    if value in ['false', 'true', 'null'] or type(value) is int:
         return value
-    elif type(value) == dict:
+    elif type(value) is dict:
         return '[complex value]'
     return f"'{value}'"
 
 
 def get_string(data, string=''):
-    if type(data) != dict:
+    if type(data) is not dict:
         if 'in file1' in data and len(data) == 2:
             return f"Property '{string}' was removed\n"
         elif 'diff types values' in data:
@@ -16,7 +16,7 @@ def get_string(data, string=''):
             return '\n'
         elif 'diff values' in data:
             return get_string(data[0], string)
-        else:    
+        else:
             return f"Property '{string}' was added with value: {check_value(data[0])}\n"
     final_string = ''
     for key, value in data.items():
