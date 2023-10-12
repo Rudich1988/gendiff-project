@@ -1,3 +1,6 @@
+from gendiff.styles.data_conversion import data_conversion
+
+
 def equality_check(files_data):
     flag = True
     for key in files_data.keys():
@@ -52,7 +55,7 @@ def final_stylish(files_data, indent_quantity=4, enclosure=1):
         finish_string += (indent_quantity * (enclosure - 1)) * ' ' + '}'
     return finish_string
 
-
+'''
 def get_new_key_value(value):
     if type(value[0]) is dict:
         new_value_1 = value[0]
@@ -83,8 +86,8 @@ def stylish_1(data):
             new_value = get_new_key_value(value[:-1])
             final_data['- ' + key] = new_value[0]
             final_data['+ ' + key] = new_value[1]
-
-            '''
+'''
+'''
             if type(value[0]) is dict:
                 final_data['- ' + key] = value[0]
                 final_data['+ ' + key] = stylish_1(value[1])
@@ -94,9 +97,9 @@ def stylish_1(data):
             else:
                 final_data['- ' + key] = stylish_1(value[0])
                 final_data['+ ' + key] = stylish_1(value[1])
-            '''
-    return final_data
 
+    return final_data
+'''
 
 def stylish_12(data):
-    return final_stylish(stylish_1(data))
+    return final_stylish(data_conversion(data))
