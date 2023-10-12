@@ -53,6 +53,19 @@ def final_stylish(files_data, indent_quantity=4, enclosure=1):
     return finish_string
 
 
+def get_new_key_value(value):
+    if type(value[0]) is dict:
+        new_value_1 = value[0]
+        new_value_2 = stylish_1(value[1])
+    elif type(value[1]) is dict:
+        new_value_1 = stylish_1(value[0])
+        new_value_2 = value[1]
+    else:
+        new_value_1 = stylish_1(value[0])
+        new_value_2 = stylish_1(value[1])
+    return (new_value_1, new_value_2)
+
+
 def stylish_1(data):
     if type(data) is not dict:
         return str(data)
@@ -67,6 +80,11 @@ def stylish_1(data):
         elif 'diff values' in value:
             final_data[key] = stylish_1(value[0])
         elif 'diff types values' in value:
+            new_value = get_new_key_value(value[:-1])
+            final_data['- ' + key] = new_value[0]
+            final_data['+ ' + key] = new_value[1]
+
+            '''
             if type(value[0]) is dict:
                 final_data['- ' + key] = value[0]
                 final_data['+ ' + key] = stylish_1(value[1])
@@ -76,6 +94,7 @@ def stylish_1(data):
             else:
                 final_data['- ' + key] = stylish_1(value[0])
                 final_data['+ ' + key] = stylish_1(value[1])
+            '''
     return final_data
 
 
