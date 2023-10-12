@@ -31,5 +31,5 @@ def final_style(files_data, enclosure=1):
         return finish_string
 
 
-def get_stylish(data):
-    return final_style(data_conversion(data))
+def get_stylish(diff_files_data):
+    return final_style(data_conversion(diff_files_data))

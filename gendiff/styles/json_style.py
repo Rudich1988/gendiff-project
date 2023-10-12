@@ -20,7 +20,7 @@ def get_comma(number, len_data):
     return ','
 
 
-def final_style(files_data, enclosure=1, flag=True):
+def final_style(files_data, enclosure=1):
     if type(files_data) is not dict:
         return str(transformation_value(files_data))
     else:
@@ -43,5 +43,5 @@ def final_style(files_data, enclosure=1, flag=True):
         return finish_string
 
 
-def get_json_style(data):
-    return final_style(data_conversion(data))
+def get_json_style(diff_files_data):
+    return final_style(data_conversion(diff_files_data))
