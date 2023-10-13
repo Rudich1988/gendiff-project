@@ -7,12 +7,13 @@ from gendiff.styles.stylish import get_stylish
 
 
 def get_format_function(format_name):
-    if format_name == 'stylish':
-        return get_stylish
-    elif format_name == 'plain':
-        return get_plain_style
-    elif format_name == 'json':
-        return get_json_style
+    match format_name:
+        case 'stylish':
+            return get_stylish
+        case 'plain':
+            return get_plain_style
+        case 'json':
+            return get_json_style
 
 
 def check_value(value):
@@ -28,32 +29,61 @@ def check_value(value):
         return file_data
 
 
-def processing_filepath(filepath, directory='tests/fixtures/'):
+def create_file_path(filepath, directory='tests/fixtures/'):
+    if '/' in filepath:
+        return filepath
+    return directory + filepath
+
+
+#!!!
+def processing_file_path(filepath):
+    try:
+        if filepath[-5:] == '.json':
+            filepath = create_file_path(filepath)
+            file_data = json.load(open(filepath))
+            return file_data
+        elif filepath[-5:] == '.yaml' or filepath[-4:] == '.yml':
+            filepath = create_file_path(filepath)
+            with open(filepath, 'r') as yaml_file:
+                file_data = yaml.safe_load(yaml_file)
+            return file_data
+    except:
+        if filepath[-5:] == '.yaml' or filepath[-4:] == '.yml':
+            filepath = create_file_path(filepath)
+            with open(filepath, 'r') as yaml_file:
+                file_data = yaml.safe_load(yaml_file)
+            return file_data
+    raise TypeError('acceptable file formats: json, yml, yaml')
+#!!!
+
+
+def transform_file(filepath):
     if filepath[-5:] == '.json':
-        if '/' not in filepath:
-            filepath = directory + filepath
+        filepath = create_file_path(filepath)
         file_data = json.load(open(filepath))
     else:
-        if '/' not in filepath:
-            filepath = directory + filepath
+        filepath = create_file_path(filepath)
         with open(filepath, 'r') as yaml_file:
             file_data = yaml.safe_load(yaml_file)
     return file_data
 
 
+ 
+
+'''
 def create_data_file(value_name):
     if type(value_name) is str:
-        if value_name[-5:] in ['.json', '.yaml'] or value_name[-4:] == '.yml':
-            file_data = processing_filepath(value_name)
-        else:
-            return value_name
+        #if value_name[-5:] in ['.json', '.yaml'] or value_name[-4:] == '.yml':
+         #   file_data = transform_file(value_name)
+        #else:
+        return value_name
     else:
         file_data = check_value(value_name)
         return file_data
     for key, value in file_data.items():
         file_data[key] = create_data_file(value)
     return file_data
-
+'''
 
 def check_same_keys(key, file1_data, file2_data):
     if file1_data[key] == file2_data[key]:
@@ -68,9 +98,9 @@ def check_same_keys(key, file1_data, file2_data):
 
 def make_diff(data1, data2=None):
     if type(data1) is not dict or data2 is None:
-        return create_data_file(data1)
-    data1 = create_data_file(data1)
-    data2 = create_data_file(data2)
+        return check_value(data1)
+    data1 = check_value(data1)
+    data2 = check_value(data2)
     final_diff = {}
     all_files_keys = sorted(list(set(data1) | (set(data2))))
     for key in all_files_keys:
@@ -85,6 +115,7 @@ def make_diff(data1, data2=None):
 
 def generate_diff(filepath_1, filepath_2, format='stylish'):
     format_function = get_format_function(format)
-    file_1_data = create_data_file(filepath_1)
-    file_2_data = create_data_file(filepath_2)
+    file_1_data = processing_file_path(filepath_1)
+    file_2_data = processing_file_path(filepath_2)
     return format_function(make_diff(file_1_data, file_2_data))
+    return file_2_data

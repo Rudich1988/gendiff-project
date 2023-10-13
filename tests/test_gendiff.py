@@ -59,3 +59,8 @@ def test_different_files_types_stylish():
 def test_different_files_format_json():
     result = generate_diff('file1.json', 'file2.json', format='json')
     assert result == read_txt_files(TXT_FILES_DIRECTORY + 'diff_files_json_format.txt')
+
+
+def test_ttt():
+    result = generate_diff('test1.json', 'test2.json', format='stylish')
+    assert result == read_txt_files(TXT_FILES_DIRECTORY + 'ttt.txt')

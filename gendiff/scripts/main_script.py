@@ -1,9 +1,10 @@
 from gendiff.diff.gendiff import parser
+from gendiff.diff.diff import generate_diff
 
 
-def generate_diff():
-    print(parser())
+def main():
+    print(generate_diff(*parser()))
 
 
-if __name__ == '__generate_diff__':
-    generate_diff()
+if __name__ == '__main__':
+    main()
