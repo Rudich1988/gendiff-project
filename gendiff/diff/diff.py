@@ -35,26 +35,15 @@ def create_file_path(filepath, directory='tests/fixtures/'):
     return directory + filepath
 
 
-#!!!
 def processing_file_path(filepath):
-    try:
-        if filepath[-5:] == '.json':
-            filepath = create_file_path(filepath)
-            file_data = json.load(open(filepath))
-            return file_data
-        elif filepath[-5:] == '.yaml' or filepath[-4:] == '.yml':
-            filepath = create_file_path(filepath)
-            with open(filepath, 'r') as yaml_file:
-                file_data = yaml.safe_load(yaml_file)
-            return file_data
-    except:
-        if filepath[-5:] == '.yaml' or filepath[-4:] == '.yml':
-            filepath = create_file_path(filepath)
-            with open(filepath, 'r') as yaml_file:
-                file_data = yaml.safe_load(yaml_file)
-            return file_data
-    raise TypeError('acceptable file formats: json, yml, yaml')
-#!!!
+    if filepath[-5:] == '.json':
+        filepath = create_file_path(filepath)
+        file_data = json.load(open(filepath))
+    elif filepath[-5:] == '.yaml' or filepath[-4:] == '.yml':
+        filepath = create_file_path(filepath)
+        with open(filepath, 'r') as yaml_file:
+            file_data = yaml.safe_load(yaml_file)
+    return file_data
 
 
 def transform_file(filepath):
@@ -67,23 +56,6 @@ def transform_file(filepath):
             file_data = yaml.safe_load(yaml_file)
     return file_data
 
-
- 
-
-'''
-def create_data_file(value_name):
-    if type(value_name) is str:
-        #if value_name[-5:] in ['.json', '.yaml'] or value_name[-4:] == '.yml':
-         #   file_data = transform_file(value_name)
-        #else:
-        return value_name
-    else:
-        file_data = check_value(value_name)
-        return file_data
-    for key, value in file_data.items():
-        file_data[key] = create_data_file(value)
-    return file_data
-'''
 
 def check_same_keys(key, file1_data, file2_data):
     if file1_data[key] == file2_data[key]:
