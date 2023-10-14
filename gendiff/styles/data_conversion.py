@@ -1,8 +1,8 @@
 def get_new_key_value(value):
-    if type(value[0]) is dict:
+    if isinstance(value[0], dict):
         new_value_1 = value[0]
         new_value_2 = data_conversion(value[1])
-    elif type(value[1]) is dict:
+    elif isinstance(value[1], dict):
         new_value_1 = data_conversion(value[0])
         new_value_2 = value[1]
     else:
@@ -18,7 +18,7 @@ def check_description_data(key, value):
 
 
 def data_conversion(data):
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         return str(data)
     final_data = {}
     for key, value in data.items():

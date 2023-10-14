@@ -17,10 +17,10 @@ def get_format_function(format_name):
 
 
 def check_value(value):
-    if type(value) is int and (value is not True and value is not False):
+    if isinstance(value, int) and not isinstance(value, bool):
         return value
     else:
-        if value in [False, True]:
+        if isinstance(value, bool):
             file_data = str(value).lower()
         elif value is None:
             file_data = 'null'
@@ -57,19 +57,19 @@ def transform_file(filepath):
     return file_data
 
 
-def check_same_keys(key, file1_data, file2_data):
-    if file1_data[key] == file2_data[key]:
-        return (make_diff(file1_data[key]), 'in 2 files')
+def check_same_keys(key, data1, data2):
+    if data1[key] == data2[key]:
+        return (make_diff(data1[key]), 'in 2 files')
     else:
-        if type(file1_data[key]) is type(file2_data[key]) is dict:
-            return (make_diff(file1_data[key], file2_data[key]), 'diff values')
+        if isinstance(data1[key], dict) and isinstance(data2[key], dict):
+            return (make_diff(data1[key], data2[key]), 'diff values')
         else:
-            return (make_diff(file1_data[key]), make_diff(file2_data[key]),
+            return (make_diff(data1[key]), make_diff(data2[key]),
                     'diff types values')
 
 
 def make_diff(data1, data2=None):
-    if type(data1) is not dict or data2 is None:
+    if not isinstance(data1, dict) or data2 is None:
         return check_value(data1)
     data1 = check_value(data1)
     data2 = check_value(data2)
@@ -90,4 +90,3 @@ def generate_diff(filepath_1, filepath_2, format='stylish'):
     file_1_data = processing_file_path(filepath_1)
     file_2_data = processing_file_path(filepath_2)
     return format_function(make_diff(file_1_data, file_2_data))
-    return file_2_data

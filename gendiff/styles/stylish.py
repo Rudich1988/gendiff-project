@@ -13,7 +13,7 @@ def create_string(enclosure, key, value, number=0):
 
 
 def final_style(files_data, enclosure=1):
-    if type(files_data) is not dict:
+    if not isinstance(files_data, dict):
         return str(files_data)
     finish_string = '{\n'
     for key, value in files_data.items():

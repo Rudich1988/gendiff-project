@@ -4,7 +4,7 @@ INDENT_QUANTITY = 4
 
 
 def transformation_value(value):
-    if type(value) is str:
+    if isinstance(value, str):
         if len(value) == 0:
             return '""'
         elif value in ['true', 'false', 'null', 'None']:
@@ -21,7 +21,7 @@ def get_comma(number, len_data):
 
 
 def final_style(files_data, enclosure=1):
-    if type(files_data) is not dict:
+    if not isinstance(files_data, dict):
         return str(transformation_value(files_data))
     else:
         finish_string = '{\n'

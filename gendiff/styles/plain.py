@@ -1,7 +1,7 @@
 def check_value(value):
-    if value in ['false', 'true', 'null'] or type(value) is int:
+    if value in ['false', 'true', 'null'] or isinstance(value, int):
         return value
-    elif type(value) is dict:
+    elif isinstance(value, dict):
         return '[complex value]'
     return f"'{value}'"
 
@@ -22,7 +22,7 @@ def create_description_diff(path, data):
 
 
 def get_string(data, path_value=''):
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         description = create_description_diff(path_value, data)
         return description
     final_string = ''
