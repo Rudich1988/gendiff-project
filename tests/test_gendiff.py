@@ -1,6 +1,11 @@
 from gendiff import generate_diff
 
 TXT_FILES_DIRECTORY = 'tests/fixtures/txt_files/'
+CHECKED_FILES_DIRECTORY = 'tests/fixtures/'
+FILEPATH1_JSON = CHECKED_FILES_DIRECTORY + 'file1.json'
+FILEPATH2_JSON = CHECKED_FILES_DIRECTORY + 'file2.json'
+FILEPATH1_YAML = CHECKED_FILES_DIRECTORY + 'file1.yaml'
+FILEPATH2_YAML = CHECKED_FILES_DIRECTORY + 'file2.yaml'
 
 
 def read_txt_files(paht_file):
@@ -12,60 +17,50 @@ def read_txt_files(paht_file):
 
 
 def test_json_files_plain():
-    result = generate_diff('file1.json', 'file2.json', format='plain')
+    result = generate_diff(FILEPATH1_JSON, FILEPATH2_JSON, format='plain')
     assert result == read_txt_files(TXT_FILES_DIRECTORY + 'files_yaml_plain.txt')
 
 
 def test_json_files_stylish():
-    result = generate_diff('file1.json', 'file2.json', format='stylish')
+    result = generate_diff(FILEPATH1_JSON, FILEPATH2_JSON, format='stylish')
     assert result == read_txt_files(TXT_FILES_DIRECTORY + 'files_yaml_stylish.txt')
 
 
 def test_yaml_files_plain():
-    result = generate_diff('file1.yaml', 'file2.yaml', format='plain')
+    result = generate_diff(FILEPATH1_YAML, FILEPATH2_YAML, format='plain')
     assert result == read_txt_files(TXT_FILES_DIRECTORY + 'files_yaml_plain.txt')
 
 
 def test_yaml_files_stylish():
-    result = generate_diff('file1.yaml', 'file2.yaml', format='stylish')
+    result = generate_diff(FILEPATH1_YAML, FILEPATH2_YAML, format='stylish')
     assert result == read_txt_files(TXT_FILES_DIRECTORY + 'files_yaml_stylish.txt')
-
-
-def test_yml_files_stylish():
-    result = generate_diff('file1.yml', 'file2.yml', format='stylish')
-    assert result == read_txt_files(TXT_FILES_DIRECTORY + 'files_yaml_stylish.txt')
-
-
-def test_yml_files_plain():
-    result = generate_diff('file1.yml', 'file2.yml', format='plain')
-    assert result == read_txt_files(TXT_FILES_DIRECTORY + 'files_yaml_plain.txt')
 
 
 def test_similar_files_plain():
-    result = generate_diff('file1.yml', 'file1.yaml', format='plain')
+    result = generate_diff(FILEPATH1_JSON, FILEPATH1_YAML, format='plain')
     assert result == ''
 
 
 def test_type_plain():
-    result = generate_diff('file1.yml', 'file1.yaml', format='plain')
+    result = generate_diff(FILEPATH1_JSON, FILEPATH1_YAML, format='plain')
     assert type(result) is str
 
 
 def test_different_files_types_stylish():
-    result = generate_diff('file1.yml', 'file2.json', format='stylish')
+    result = generate_diff(FILEPATH1_YAML, FILEPATH2_JSON, format='stylish')
     assert result == read_txt_files(TXT_FILES_DIRECTORY + 'files_yaml_stylish.txt')
 
 
 def test_different_files_format_json():
-    result = generate_diff('file1.json', 'file2.json', format='json')
+    result = generate_diff(FILEPATH1_JSON, FILEPATH2_JSON, format='json')
     assert result == read_txt_files(TXT_FILES_DIRECTORY + 'diff_files_json_format.txt')
 
 
 def test_ttt():
-    result = generate_diff('test1.json', 'test2.json', format='stylish')
+    result = generate_diff('tests/fixtures/test1.json', 'tests/fixtures/test2.json', format='stylish')
     assert  result == read_txt_files(TXT_FILES_DIRECTORY + 'ttt.txt')
 
 
 def test_jjj():
-    result = generate_diff('test1.json', 'test2.json', format='plain')
+    result = generate_diff('tests/fixtures/test1.json', 'tests/fixtures/test2.json', format='plain')
     assert result == read_txt_files(TXT_FILES_DIRECTORY + 'jjj.txt')

@@ -4,13 +4,9 @@ INDENT_QUANTITY = 4
 
 
 def transformation_value(value):
-    #if isinstance(value, str):
-     #   if len(value) == 0:
-      #      return '""'
     if value in ['true', 'false', 'null'] or isinstance(value, int):
         return value
     return f'"{value}"'
-    #return value
 
 
 def get_comma(number, len_data):
