@@ -1,3 +1,7 @@
+from gendiff.diff.diff_names import (IN_2_FILES, IN_FILE1, IN_FILE2,
+                                     DIFF_TYPES_VALUES, DIFF_VALUES)
+
+
 def get_new_key_value(value):
     if isinstance(value[0], dict):
         new_value_1 = value[0]
@@ -12,7 +16,7 @@ def get_new_key_value(value):
 
 
 def check_description_data(key, value):
-    if 'in file1' in value:
+    if IN_FILE1 in value:
         return '- ' + key
     return '+ ' + key
 
@@ -22,12 +26,12 @@ def data_conversion(data):
         return str(data)
     final_data = {}
     for key, value in data.items():
-        if 'in file1' in value or 'in file2' in value:
+        if IN_FILE1 in value or IN_FILE2 in value:
             new_key = check_description_data(key, value)
             final_data[new_key] = value[0]
-        elif 'in 2 files' in value or 'diff values' in value:
+        elif IN_2_FILES in value or DIFF_VALUES in value:
             final_data[key] = data_conversion(value[0])
-        elif 'diff types values' in value:
+        elif DIFF_TYPES_VALUES in value:
             new_value = get_new_key_value(value[:-1])
             final_data['- ' + key] = new_value[0]
             final_data['+ ' + key] = new_value[1]

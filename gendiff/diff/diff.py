@@ -1,6 +1,8 @@
 import json
 
 import yaml
+from gendiff.diff.diff_names import (IN_2_FILES, IN_FILE1, IN_FILE2,
+                                     DIFF_VALUES, DIFF_TYPES_VALUES)
 from gendiff.styles.json_style import get_json_style
 from gendiff.styles.plain import get_plain_style
 from gendiff.styles.stylish import get_stylish
@@ -59,17 +61,15 @@ def transform_file(filepath):
 
 def check_same_keys(key, data1, data2):
     if data1[key] == data2[key]:
-        return (make_diff(data1[key]), 'in 2 files')
-    else:
-        if isinstance(data1[key], dict) and isinstance(data2[key], dict):
-            return (make_diff(data1[key], data2[key]), 'diff values')
-        else:
-            return (make_diff(data1[key]), make_diff(data2[key]),
-                    'diff types values')
+        return (make_diff(data1[key]), IN_2_FILES)
+    if isinstance(data1[key], dict) and isinstance(data2[key], dict):
+        return (make_diff(data1[key], data2[key]), DIFF_VALUES)
+    return (make_diff(data1[key]), make_diff(data2[key]),
+            DIFF_TYPES_VALUES)
 
 
 def make_diff(data1, data2=None):
-    if not isinstance(data1, dict) or data2 is None:
+    if not data2:
         return check_value(data1)
     data1 = check_value(data1)
     data2 = check_value(data2)
@@ -79,9 +79,9 @@ def make_diff(data1, data2=None):
         if key in data1 and key in data2:
             final_diff[key] = check_same_keys(key, data1, data2)
         elif key not in data1 and key in data2:
-            final_diff[key] = (make_diff(data2[key]), 'in file2')
+            final_diff[key] = (make_diff(data2[key]), IN_FILE2)
         elif key not in data2 and key in data1:
-            final_diff[key] = (make_diff(data1[key]), 'in file1')
+            final_diff[key] = (make_diff(data1[key]), IN_FILE1)
     return final_diff
 
 

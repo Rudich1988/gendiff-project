@@ -4,20 +4,27 @@ INDENT_QUANTITY = 4
 
 
 def transformation_value(value):
-    if isinstance(value, str):
-        if len(value) == 0:
-            return '""'
-        elif value in ['true', 'false', 'null', 'None']:
-            return value
-        else:
-            return f'"{value}"'
-    return value
+    #if isinstance(value, str):
+     #   if len(value) == 0:
+      #      return '""'
+    if value in ['true', 'false', 'null'] or isinstance(value, int):
+        return value
+    return f'"{value}"'
+    #return value
 
 
 def get_comma(number, len_data):
     if len_data == number:
         return ''
     return ','
+
+
+def create_string(enclosure, key, value, possible_comma, number=0):
+    string = ((INDENT_QUANTITY * enclosure - number) * ' '
+              + f'"{key}"' + ': '
+              + final_style(value, enclosure=enclosure + 1)
+              + possible_comma + '\n')
+    return string
 
 
 def final_style(files_data, enclosure=1):
@@ -30,15 +37,11 @@ def final_style(files_data, enclosure=1):
             count += 1
             possible_comma = get_comma(count, len(files_data))
             if key[:2] != '- ' and key[:2] != '+ ':
-                finish_string += ((INDENT_QUANTITY * enclosure) * ' '
-                                  + f'"{key}"' + ': '
-                                  + final_style(value, enclosure=enclosure + 1)
-                                  + possible_comma + '\n')
+                finish_string += create_string(enclosure, key, value,
+                                               possible_comma)
             else:
-                finish_string += ((INDENT_QUANTITY * enclosure - 2) * ' '
-                                  + f'"{key}"' + ': '
-                                  + final_style(value, enclosure=enclosure + 1)
-                                  + possible_comma + '\n')
+                finish_string += create_string(enclosure, key, value,
+                                               possible_comma, number=2)
         finish_string += (INDENT_QUANTITY * (enclosure - 1)) * ' ' + '}'
         return finish_string
 
