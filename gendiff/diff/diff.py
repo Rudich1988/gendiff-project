@@ -28,29 +28,11 @@ def possible_transform_value(value):
     return file_data
 
 
-def create_file_path(filepath, directory='tests/fixtures/'):
-    if '/' in filepath:
-        return filepath
-    return directory + filepath
-
-'''
-def processing_file_path(filepath):
-    if filepath[-5:] == '.json':
-        filepath = create_file_path(filepath)
-        file_data = json.load(open(filepath))
-    elif filepath[-5:] == '.yaml' or filepath[-4:] == '.yml':
-        filepath = create_file_path(filepath)
-        with open(filepath, 'r') as yaml_file:
-            file_data = yaml.safe_load(yaml_file)
-    return file_data
-'''
-
 def transform_filepath(filepath):
-    if filepath[-5:] == '.json':
-        #filepath = create_file_path(filepath)
-        file_data = json.load(open(filepath))
+    if filepath.endswith('.json'):
+        with open(filepath, 'r') as json_file:
+            file_data = json.load(json_file)
     else:
-        #filepath = create_file_path(filepath)
         with open(filepath, 'r') as yaml_file:
             file_data = yaml.safe_load(yaml_file)
     return file_data
