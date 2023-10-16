@@ -53,4 +53,4 @@ def test_different_files_types_stylish():
 
 def test_different_files_format_json():
     result = generate_diff(FILEPATH1_JSON, FILEPATH2_JSON, format='json')
-    assert result == read_txt_files(TXT_FILES_DIRECTORY + 'diff_files_json_format.txt')
+    assert result == read_txt_files(TXT_FILES_DIRECTORY + 'diff_json_format.txt')
